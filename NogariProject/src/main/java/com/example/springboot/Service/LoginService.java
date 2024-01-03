@@ -11,15 +11,18 @@ import com.example.springboot.repository.LoginRepository;
 @Service
 public class LoginService {
 	
-	private final LoginRepository loginRepository;
-
 	@Autowired
-	public LoginService(LoginRepository loginRepository) {
-		this.loginRepository = loginRepository;
-	}
-	
-	public Optional<MemberDTO> login(MemberDTO mDto) {
-		return loginRepository.findById(mDto.getId());
+	private LoginRepository loginRepository;
+
+	public MemberDTO login(MemberDTO mDto) throws Exception{
+		
+		Optional<MemberDTO> findMember = loginRepository.findById(mDto.getId());
+		
+		if(!findMember.orElseThrow(()-> new Exception("해당 아이디가 존재하지 않습니다.")).checkPassword(mDto.getPw())){
+	        throw new IllegalStateException("아이디와 비밀번호가 일치하지 않습니다.");
+	    }
+		
+		return findMember.get(); 
 	}
 	
 	

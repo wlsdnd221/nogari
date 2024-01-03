@@ -18,17 +18,16 @@ import com.example.springboot.Service.LoginService;
 @RestController
 public class LoginController {
 	
-	LoginService loginService;
-	
 	@Autowired
-	public LoginController(LoginService loginService) {
-		this.loginService = loginService;
-	}
+	LoginService loginService;
 
 	
 	@PostMapping("/login")
-	public Optional<MemberDTO> Login(@RequestBody MemberDTO memberDto) {
-		return loginService.login(memberDto);
+	public MemberDTO Login(@RequestBody MemberDTO memberDto) throws Exception {
+		
+		MemberDTO loginMember = loginService.login(memberDto);
+		
+		return loginMember;
 	}
 	
 }

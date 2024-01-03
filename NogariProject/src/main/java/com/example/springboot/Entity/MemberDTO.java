@@ -28,6 +28,11 @@ public class MemberDTO {
 		this.pw = pw;
 	}
 
-
+	// 로그인정보 확인
+	public boolean checkPassword(String password) {
+		return this.pw.equals(password);
+	}
+	
+	
 	
 }
